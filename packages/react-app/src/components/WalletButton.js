@@ -9,6 +9,13 @@ const WalletButton = () => {
     const { account, activateBrowserWallet, deactivate } = useEthers();
 
     useEffect(() => {
+        if ( ens) {
+            setAccountAddress( ens ) ; 
+        }else if ( account ) { 
+            setAccountAddress( shortenAddress( account ) );
+        } else {
+            setAccountAddress('') ;
+        }
 
     } , [account , ens, setAccountAddress])
     return (
@@ -22,8 +29,7 @@ const WalletButton = () => {
         }}
         className={styles.walletButton}
         >
-            {!accountAddress && "Connect Wallet"} 
-            {accountAddress && accountAddress }
+            { accountAddress || "Connect Wallet" } 
         </button>
     )
 }
